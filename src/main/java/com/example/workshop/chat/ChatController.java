@@ -2,6 +2,7 @@ package com.example.workshop.chat;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -13,7 +14,7 @@ public class ChatController {
     this.chatClient = builder.build();
   }
 
-  @GetMapping("/chat")
+  @PostMapping("/chat")
   public String chat() {
     return chatClient.prompt().user("Tell me an interesting fact about Java").call().content();
   }
