@@ -3,6 +3,7 @@ package com.example.workshop.chat;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 
 @RestController
 public class ChatController {
@@ -16,5 +17,14 @@ public class ChatController {
   @GetMapping("/chat")
   public String chat() {
     return chatClient.prompt().user("Tell me an interesting fact about Java").call().content();
+  }
+
+  @GetMapping("/stream")
+  public Flux<String> stream() {
+    return chatClient
+        .prompt()
+        .user("I'm visiting Shanghai, can you give me 10 places I must visit?")
+        .stream()
+        .content();
   }
 }
